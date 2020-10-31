@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NoContactContact</string>
+    <string name="eos">eos.uptrade.de</string>
+    <string name="jobs">Jobs</string>
+    <string name="hod">Head of Development</string>
+    <string name="devOps">DevOps</string>
+    <string name="java">Java</string>
+    <string name="php">PHP</string>
+    <string name="system_engineer">SystemEngineer</string>
+    <string name="fullstack">Fullstack (PHP)</string>
+    <string name="student">Student</string>
+    <string name="linkedIn">LinkedIn</string>
+</resources>
