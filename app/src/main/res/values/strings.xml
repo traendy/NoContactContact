@@ -10,4 +10,10 @@
     <string name="fullstack">Fullstack (PHP)</string>
     <string name="student">Student</string>
     <string name="linkedIn">LinkedIn</string>
+    <string name="add_qr_code">Add QR Code.</string>
+    <string name="add_dialot_description">To add a new QR-Code to your library just enter a name and an url where the code should lead to.</string>
+    <string name="add_dialog_title">Add new QR-Code.</string>
+    <string name="add_button_text">Add</string>
+    <string name="add_dialog_input_hint_name">Name</string>
+    <string name="add_dialog_input_hint_content">Content</string>
 </resources>

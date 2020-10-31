@@ -10,7 +10,7 @@ class PageViewModel : ViewModel() {
 
     private val _title = MutableLiveData<String>()
     val text: LiveData<String> = Transformations.map(_title) {
-        "$it"
+        it
     }
 
     private val _drawable = MutableLiveData<Drawable>()
