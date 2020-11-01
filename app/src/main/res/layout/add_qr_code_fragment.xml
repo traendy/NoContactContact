@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp"
-    tools:context=".ui.add.AddQrCodeFragment">
+    >
 
     <TextView
         android:id="@+id/title"
@@ -14,9 +14,10 @@
         android:text="@string/add_dialog_title"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         android:paddingBottom="@dimen/paragraph_bottom_padding"
+        android:textAlignment="textStart"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
     <TextView
@@ -33,12 +34,12 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameInputLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:paddingBottom="@dimen/input_layout_bottom_padding"
         app:layout_constraintTop_toBottomOf="@id/description"
-        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
         >
@@ -52,7 +53,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/contentInputLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:paddingBottom="@dimen/input_layout_bottom_padding"
@@ -71,7 +72,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Widget.MaterialComponents.Button"
         android:layout_marginTop="16dp"
