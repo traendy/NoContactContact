@@ -2,6 +2,8 @@ package de.traendy.nocontact
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import de.traendy.featureflag.FeatureFlag
+import de.traendy.featureflag.RuntimeBehavior
 import de.traendy.nocontact.databinding.ActivityMainBinding
 import de.traendy.nocontact.ui.add.AddQrCodeFragment
 import de.traendy.nocontact.ui.main.SectionsPagerAdapter
@@ -22,7 +24,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openDialog() {
-        val dialog = AddQrCodeFragment()
-        dialog.show(supportFragmentManager, "dialog")
+        if(RuntimeBehavior.isFeatureEnabled(FeatureFlag.BOTTOM_SHEET_ADD_DIALOG)) {
+            val dialog = AddQrCodeFragment()
+            dialog.show(supportFragmentManager, "dialog")
+        }
     }
 }

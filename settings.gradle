@@ -1,2 +1,3 @@
+include ':library:featureflag'
 include ':app'
 rootProject.name = "NoContactContact"
