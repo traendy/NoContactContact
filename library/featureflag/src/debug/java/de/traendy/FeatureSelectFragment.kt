@@ -71,13 +71,13 @@ internal class FeatureSelectFragment : androidx.fragment.app.Fragment() {
 
     private fun requestRestart() {
         val msg = "In order for changes to reflect please restart the app via settings"
-        val snackbar = Snackbar.make(view!!, msg, Snackbar.LENGTH_INDEFINITE)
+        val snackBar = Snackbar.make(view!!, msg, Snackbar.LENGTH_INDEFINITE)
             .setActionTextColor(Color.RED)
             .setAction("Force Stop") {
                 exitProcess(-1)
             }
-        snackbar.view.setBackgroundColor(Color.BLACK)
-        snackbar.show()
+        snackBar.view.setBackgroundColor(Color.GRAY)
+        snackBar.show()
     }
 }
 

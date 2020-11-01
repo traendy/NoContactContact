@@ -3,16 +3,12 @@ package de.traendy.featureflag
 import android.content.Context
 import android.content.SharedPreferences
 
-class RuntimeFeatureFlagProvider : FeatureFlagProvider {
+class RuntimeFeatureFlagProvider(applicationContext: Context) : FeatureFlagProvider {
 
-    private val preferences: SharedPreferences
+    private val preferences: SharedPreferences =
+        applicationContext.getSharedPreferences("runtime.featureflags", Context.MODE_PRIVATE)
 
     override val priority = MEDIUM_PRIORITY
-
-    constructor(applicationContext: Context) {
-        preferences =
-            applicationContext.getSharedPreferences("runtime.featureflags", Context.MODE_PRIVATE)
-    }
 
     override fun isFeatureEnabled(feature: Feature): Boolean =
         preferences.getBoolean(feature.key, feature.defaultValue)

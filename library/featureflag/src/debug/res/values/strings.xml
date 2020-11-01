@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_testsettings">NoCCSettings</string>
+    <string name="feature_flags">Feature flags</string>
+    <string name="test_settings">Test settings</string>
+    <string name="testsettings_explanation">Dynamically adjust the runtime behavior of the app. This is a internal only feature that musn\'t be used by anyone else.</string>
 </resources>

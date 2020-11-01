@@ -25,9 +25,7 @@ object RuntimeBehavior {
 
     @JvmStatic
     fun isFeatureEnabled(feature: Feature): Boolean {
-        return providers.filter { it.hasFeature(feature) }
-            .sortedBy(FeatureFlagProvider::priority)
-            .firstOrNull()
+        return providers.filter { it.hasFeature(feature) }.minByOrNull(FeatureFlagProvider::priority)
             ?.isFeatureEnabled(feature)
             ?: feature.defaultValue
     }
