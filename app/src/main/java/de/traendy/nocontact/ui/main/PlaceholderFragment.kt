@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import de.traendy.nocontact.R
+import de.traendy.qrcode.QrCodeGenerator
 
 /**
  * A placeholder fragment containing a simple view.
@@ -37,11 +38,12 @@ class PlaceholderFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
         val textView: TextView = root.findViewById(R.id.section_label)
         val imageView: ImageView = root.findViewById(R.id.imageView)
-        pageViewModel.text.observe(this, Observer<String> {
+        pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
             textView.text = it
         })
-        pageViewModel.drawable.observe(this, Observer<Drawable?>{
-            imageView.setImageDrawable(it)
+        pageViewModel.drawable.observe(viewLifecycleOwner, Observer<Drawable?>{
+//            imageView.setImageDrawable(it)
+            imageView.setImageBitmap(QrCodeGenerator().createQrCodeBitMap("content", resources.getDimensionPixelSize(R.dimen.barcode_image_size)))
         })
         return root
     }
