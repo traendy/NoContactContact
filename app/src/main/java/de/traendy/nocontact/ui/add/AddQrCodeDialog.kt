@@ -15,8 +15,11 @@ class AddQrCodeDialog {
     ): AddQrCodeFragmentBinding {
         val binding = AddQrCodeFragmentBinding.inflate(inflater, container, false)
         binding.addButton.setOnClickListener {
-            viewModel.setName(binding.nameInputLayout.editText?.text.toString())
-            viewModel.setContent(binding.contentInputLayout.editText?.text.toString())
+            val name = binding.nameInputLayout.editText?.text.toString()
+            val content = binding.contentInputLayout.editText?.text.toString()
+            viewModel.setName(name)
+            viewModel.setContent(content)
+            viewModel.saveQrCode(name, content)
             dialog.dismiss()
         }
         return binding

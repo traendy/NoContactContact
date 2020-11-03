@@ -1,3 +1,4 @@
+include ':library:database'
 include ':library:qrcode'
 include ':library:featureflag'
 include ':app'

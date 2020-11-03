@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/library/database" />
             <option value="$PROJECT_DIR$/library/featureflag" />
             <option value="$PROJECT_DIR$/library/qrcode" />
           </set>
