@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph.xml"
+    app:startDestination="@id/qrCodeFragment">
+
+    <fragment
+        android:id="@+id/qrCodeFragment"
+        android:name="de.traendy.nocontact.ui.qrcodes.QrCodeFragment"
+        android:label="fragment_qrcode_list"
+        tools:layout="@layout/fragment_qrcode_list" />
+</navigation>

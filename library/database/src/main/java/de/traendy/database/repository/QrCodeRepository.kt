@@ -4,6 +4,7 @@ import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.model.QrCode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
 class QrCodeRepository constructor(
@@ -16,11 +17,8 @@ class QrCodeRepository constructor(
         }
     }
 
-    suspend fun getAll(): Collection<QrCode> {
-        return withContext(ioDispatcher) {
-            return@withContext qrCodeDataSource.getAllQrCodes()
-        }
-    }
+    fun getAll(): Flow<Collection<QrCode>> = qrCodeDataSource.getAllQrCodes()
+
 
     suspend fun saveQrCode(qrCode: QrCode) {
         withContext(ioDispatcher) {

@@ -4,27 +4,22 @@ import de.traendy.database.dao.QrCodeDao
 import de.traendy.database.model.QrCode
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 
-public class QrCodeDataSource(
-    private val qrCodeDao: QrCodeDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+class QrCodeDataSource(
+        private val qrCodeDao: QrCodeDao,
+        private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
     suspend fun getQrCodeById(id: Int): QrCode = withContext(ioDispatcher) {
-        return@withContext qrCodeDao.getDesignPatternById(id)
+        return@withContext qrCodeDao.getById(id)
     }
 
-    suspend fun getAllQrCodes(): Collection<QrCode> =
-        withContext(ioDispatcher) {
-            return@withContext qrCodeDao.getAll()
-        }
+    fun getAllQrCodes(): Flow<Collection<QrCode>> = qrCodeDao.getAll()
 
-    suspend fun getQrCodesBySearchString(searchString: String): Collection<QrCode> =
-        withContext(ioDispatcher) {
-            return@withContext qrCodeDao.getAll().filter {
-                it.title.contains(searchString)
-            }
-        }
+
+    // TODO query db not list
+    suspend fun getQrCodesBySearchString(searchString: String): Collection<QrCode> = emptyList()
 
     suspend fun saveQrCode(qrCode: QrCode) {
         qrCodeDao.insert(qrCode)

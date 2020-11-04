@@ -11,8 +11,7 @@ import de.traendy.database.model.QrCode
     entities = [
         QrCode::class
     ],
-    version = 1,
-    exportSchema = true
+    version = 1
 )
 abstract class QrCodeDatabase : RoomDatabase() {
     abstract fun qrCodeDao(): QrCodeDao
@@ -24,7 +23,7 @@ abstract class QrCodeDatabase : RoomDatabase() {
                 instance = databaseBuilder(
                     context.applicationContext,
                     QrCodeDatabase::class.java,
-                    "design_patterns.db"
+                    "no_contact_contact.db"
                 ).build()
             }
             return instance

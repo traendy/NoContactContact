@@ -8,4 +8,5 @@
     <dimen name="paragraph_bottom_padding">16dp</dimen>
     <dimen name="input_layout_bottom_padding">8dp</dimen>
     <dimen name="barcode_image_size">400dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

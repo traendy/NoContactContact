@@ -2,6 +2,7 @@ package de.traendy.database.dao
 
 import androidx.room.*
 import de.traendy.database.model.QrCode
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QrCodeDao {
@@ -13,12 +14,12 @@ interface QrCodeDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM qr_code_table ORDER BY title ASC")
-    suspend fun getAll(): List<QrCode>
+    fun getAll(): Flow<List<QrCode>>
 
     @Delete
-    suspend fun deleteDesignPattern(element: QrCode)
+    suspend fun delete(element: QrCode)
 
     @Query("SELECT * FROM qr_code_table WHERE id = :elementId LIMIT 1")
-    fun getDesignPatternById(elementId: Int): QrCode
+    fun getById(elementId: Int): QrCode
 
 }
