@@ -1,6 +1,9 @@
 package de.traendy.nocontact.ui.qrcodes
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import de.traendy.database.model.QrCode
 import de.traendy.database.repository.QrCodeRepository
 import kotlinx.coroutines.*
@@ -23,6 +26,12 @@ class QrCodeFragmentViewModel constructor(private val qrCodeRepository: QrCodeRe
             qrCodeRepository.getAll().collect {
                 _qrCodes.postValue(it)
             }
+        }
+    }
+
+    fun deleteCode(qrCode: QrCode) {
+        launch {
+            qrCodeRepository.delete(qrCode)
         }
     }
 }

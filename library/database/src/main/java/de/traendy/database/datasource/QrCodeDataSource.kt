@@ -24,4 +24,8 @@ class QrCodeDataSource(
     suspend fun saveQrCode(qrCode: QrCode) {
         qrCodeDao.insert(qrCode)
     }
+
+    suspend fun delete(qrCode: QrCode) {
+        qrCodeDao.delete(qrCode)
+    }
 }

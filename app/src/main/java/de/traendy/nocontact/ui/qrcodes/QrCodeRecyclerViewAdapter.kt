@@ -1,21 +1,21 @@
 package de.traendy.nocontact.ui.qrcodes
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import de.traendy.database.model.QrCode
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.FragmentQrcodeListElementBinding
-
 import de.traendy.qrcode.QrCodeGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class QrCodeRecyclerViewAdapter : ListAdapter<QrCode, QrCodeRecyclerViewAdapter.QrCodeViewHolder>(QrCodeDiffCallback()) {
+class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
+    ListAdapter<QrCode, QrCodeRecyclerViewAdapter.QrCodeViewHolder>(QrCodeDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
@@ -32,7 +32,7 @@ class QrCodeRecyclerViewAdapter : ListAdapter<QrCode, QrCodeRecyclerViewAdapter.
     }
 
     override fun onBindViewHolder(holderQrCode: QrCodeViewHolder, position: Int) {
-        holderQrCode.bind(getItem(position))
+        holderQrCode.bind(getItem(position), deleteCallback)
     }
 
     class QrCodeViewHolder(private val binding: FragmentQrcodeListElementBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -47,14 +47,16 @@ class QrCodeRecyclerViewAdapter : ListAdapter<QrCode, QrCodeRecyclerViewAdapter.
                 )
             }
         }
-        fun bind(qrCode:QrCode){
+
+        fun bind(qrCode: QrCode, deleteCallback: (QrCode) -> Unit) {
             binding.sectionLabel.text = qrCode.title
             binding.imageView.setImageBitmap(
                 QrCodeGenerator().createQrCodeBitMap(
-                    qrCode.content?:"",
+                    qrCode.content ?: "",
                     binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
                 )
             )
+            binding.deleteButton.setOnClickListener { deleteCallback(qrCode) }
         }
     }
 

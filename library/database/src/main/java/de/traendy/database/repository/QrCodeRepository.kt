@@ -29,8 +29,14 @@ class QrCodeRepository constructor(
     suspend fun getQrCode(searchString: String): Collection<QrCode> {
         return withContext(ioDispatcher) {
             return@withContext qrCodeDataSource.getQrCodesBySearchString(
-                searchString
+                    searchString
             )
+        }
+    }
+
+    suspend fun delete(qrCode: QrCode) {
+        withContext(ioDispatcher) {
+            qrCodeDataSource.delete(qrCode)
         }
     }
 }

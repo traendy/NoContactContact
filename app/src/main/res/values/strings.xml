@@ -19,4 +19,8 @@
     <string name="name_to_short_or_missing">Please insert a name.</string>
     <string name="content_to_short_or_missing">Please insert some content for the QR code.</string>
     <string name="created_qr_code">"Created QR code: "</string>
+    <string name="delete_qr_code">Delete QR code:</string>
+    <string name="delete_dialog_title">Delete</string>
+    <string name="delete">delete</string>
+    <string name="cancel">Cancel</string>
 </resources>
