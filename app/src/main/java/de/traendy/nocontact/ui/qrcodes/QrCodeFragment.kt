@@ -1,12 +1,13 @@
 package de.traendy.nocontact.ui.qrcodes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
 import de.traendy.database.database.QrCodeDatabase
 import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.repository.QrCodeRepository
@@ -33,6 +34,8 @@ class QrCodeFragment : Fragment() {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = qrCodeListAdapter
         }
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.list)
         viewModel.qrCodes.observe(viewLifecycleOwner, {
             qrCodeListAdapter.addAndSubmitList(it.toList())
         })

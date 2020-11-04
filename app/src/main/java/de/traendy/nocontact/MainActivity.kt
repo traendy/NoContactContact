@@ -8,7 +8,6 @@ import de.traendy.nocontact.databinding.ActivityMainBinding
 import de.traendy.nocontact.ui.add.AddQrCodeBottomSheetDialog
 import de.traendy.nocontact.ui.add.AddQrCodeDialog
 import de.traendy.nocontact.ui.add.AddQrCodeFragmentDialog
-import de.traendy.nocontact.ui.main.SectionsPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
