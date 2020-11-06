@@ -14,8 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+const val contentMinLines = 1
+const val contentMaxLines = 100
+
 class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
-    ListAdapter<QrCode, QrCodeRecyclerViewAdapter.QrCodeViewHolder>(QrCodeDiffCallback()) {
+        ListAdapter<QrCode, QrCodeRecyclerViewAdapter.QrCodeViewHolder>(QrCodeDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
@@ -51,12 +54,21 @@ class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
         fun bind(qrCode: QrCode, deleteCallback: (QrCode) -> Unit) {
             binding.sectionLabel.text = qrCode.title
             binding.imageView.setImageBitmap(
-                QrCodeGenerator().createQrCodeBitMap(
-                    qrCode.content ?: "",
-                    binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
-                )
+                    QrCodeGenerator().createQrCodeBitMap(
+                            qrCode.content ?: "",
+                            binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
+                    )
             )
             binding.deleteButton.setOnClickListener { deleteCallback(qrCode) }
+            binding.contentData.text = qrCode.content
+            binding.contentData.setOnClickListener {
+                if (binding.contentData.maxLines == contentMinLines) {
+                    binding.contentData.maxLines = contentMaxLines
+                } else {
+                    binding.contentData.maxLines = contentMinLines
+                }
+
+            }
         }
     }
 

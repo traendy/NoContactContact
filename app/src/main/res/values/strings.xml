@@ -23,4 +23,6 @@
     <string name="delete_dialog_title">Delete</string>
     <string name="delete">delete</string>
     <string name="cancel">Cancel</string>
+    <string name="qr_code_image_content_description">QR Code</string>
+    <string name="content_title">Content:</string>
 </resources>
