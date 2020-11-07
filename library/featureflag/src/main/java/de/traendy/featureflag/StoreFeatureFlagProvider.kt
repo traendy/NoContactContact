@@ -11,6 +11,7 @@ class StoreFeatureFlagProvider : FeatureFlagProvider {
             // option for release must be an explicit choice
             return when (feature) {
                 FeatureFlag.BOTTOM_SHEET_ADD_DIALOG -> false
+                FeatureFlag.SHARE_CONTENT -> false
             }
         } else {
             // TestSettings should never be shipped to users

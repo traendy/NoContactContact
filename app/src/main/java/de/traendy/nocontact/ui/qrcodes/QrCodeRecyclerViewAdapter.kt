@@ -1,11 +1,14 @@
 package de.traendy.nocontact.ui.qrcodes
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.traendy.database.model.QrCode
+import de.traendy.featureflag.FeatureFlag
+import de.traendy.featureflag.RuntimeBehavior
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.FragmentQrcodeListElementBinding
 import de.traendy.qrcode.QrCodeGenerator
@@ -17,7 +20,7 @@ import kotlinx.coroutines.withContext
 const val contentMinLines = 1
 const val contentMaxLines = 100
 
-class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
+class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit, private val shareCallback: (QrCode) -> Unit) :
         ListAdapter<QrCode, QrCodeRecyclerViewAdapter.QrCodeViewHolder>(QrCodeDiffCallback()) {
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
@@ -35,7 +38,7 @@ class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
     }
 
     override fun onBindViewHolder(holderQrCode: QrCodeViewHolder, position: Int) {
-        holderQrCode.bind(getItem(position), deleteCallback)
+        holderQrCode.bind(getItem(position), deleteCallback, shareCallback)
     }
 
     class QrCodeViewHolder(private val binding: FragmentQrcodeListElementBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -46,12 +49,12 @@ class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
                 val binding = FragmentQrcodeListElementBinding.inflate(layoutInflater, parent, false)
 
                 return QrCodeViewHolder(
-                    binding
+                        binding
                 )
             }
         }
 
-        fun bind(qrCode: QrCode, deleteCallback: (QrCode) -> Unit) {
+        fun bind(qrCode: QrCode, deleteCallback: (QrCode) -> Unit, shareCallback: (QrCode) -> Unit) {
             binding.sectionLabel.text = qrCode.title
             binding.imageView.setImageBitmap(
                     QrCodeGenerator().createQrCodeBitMap(
@@ -60,6 +63,12 @@ class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit) :
                     )
             )
             binding.deleteButton.setOnClickListener { deleteCallback(qrCode) }
+            if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.SHARE_CONTENT)) {
+                binding.shareButton.setOnClickListener { shareCallback(qrCode) }
+            } else {
+                binding.shareButton.visibility = View.GONE
+            }
+
             binding.contentData.text = qrCode.content
             binding.contentData.setOnClickListener {
                 if (binding.contentData.maxLines == contentMinLines) {

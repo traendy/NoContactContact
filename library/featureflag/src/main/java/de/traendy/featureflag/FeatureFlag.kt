@@ -6,5 +6,6 @@ enum class FeatureFlag(
     override val explanation: String,
     override val defaultValue: Boolean = true
 ) : Feature {
-    BOTTOM_SHEET_ADD_DIALOG("feature.bottomsheet.add.dialog", "Add Code bottom sheet dialog", "Enables bottom sheet dialog to add new qr codes.")
+    BOTTOM_SHEET_ADD_DIALOG("feature.bottomsheet.add.dialog", "Add Code bottom sheet dialog", "Enables bottom sheet dialog to add new qr codes."),
+    SHARE_CONTENT("feature.share.content", "Share content button", "Allows the user to share qr code content.")
 }

@@ -1,5 +1,6 @@
 package de.traendy.nocontact.ui.qrcodes
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,7 @@ class QrCodeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQrcodeListBinding.inflate(inflater, container, false)
-        val qrCodeListAdapter = QrCodeRecyclerViewAdapter { qrCode -> showDeleteDialog(qrCode) }
+        val qrCodeListAdapter = QrCodeRecyclerViewAdapter(::showDeleteDialog, ::shareQrCode)
         binding.list.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             adapter = qrCodeListAdapter
@@ -49,11 +50,22 @@ class QrCodeFragment : Fragment() {
     private fun showDeleteDialog(qrCode: QrCode) {
         context?.let {
             AlertDialog.Builder(it)
-                .setTitle(R.string.delete_dialog_title)
-                .setMessage(getString(R.string.delete_qr_code) + " ${qrCode.title}")
-                .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteCode(qrCode) }
-                .setNegativeButton(R.string.cancel) { dialogInterface, _ -> dialogInterface.dismiss() }
-                .show()
+                    .setTitle(R.string.delete_dialog_title)
+                    .setMessage(getString(R.string.delete_qr_code) + " ${qrCode.title}")
+                    .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteCode(qrCode) }
+                    .setNegativeButton(R.string.cancel) { dialogInterface, _ -> dialogInterface.dismiss() }
+                    .show()
         }
+    }
+
+    private fun shareQrCode(qrCode: QrCode) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, qrCode.content)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }
