@@ -12,6 +12,7 @@ class StoreFeatureFlagProvider : FeatureFlagProvider {
             return when (feature) {
                 FeatureFlag.BOTTOM_SHEET_ADD_DIALOG -> false
                 FeatureFlag.SHARE_CONTENT -> false
+                FeatureFlag.MAIL_QR_CODE -> false
             }
         } else {
             // TestSettings should never be shipped to users

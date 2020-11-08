@@ -26,4 +26,5 @@
     <string name="qr_code_image_content_description">QR Code</string>
     <string name="content_title">Content:</string>
     <string name="share_content">Share content.</string>
+    <string name="mandatory_info_error">This field is mandatory.</string>
 </resources>

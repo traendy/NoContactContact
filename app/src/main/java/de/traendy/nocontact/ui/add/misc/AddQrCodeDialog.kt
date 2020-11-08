@@ -1,4 +1,4 @@
-package de.traendy.nocontact.ui.add
+package de.traendy.nocontact.ui.add.misc
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

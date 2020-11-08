@@ -9,5 +9,14 @@
         android:id="@+id/qrCodeFragment"
         android:name="de.traendy.nocontact.ui.qrcodes.QrCodeFragment"
         android:label="fragment_qrcode_list"
-        tools:layout="@layout/fragment_qrcode_list" />
+        tools:layout="@layout/fragment_qrcode_list">
+        <action
+            android:id="@+id/action_qrCodeFragment_to_mailFragment"
+            app:destination="@id/mailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mailFragment"
+        android:name="de.traendy.nocontact.ui.add.mail.MailFragment"
+        android:label="MailFragment"
+        tools:layout="@layout/mail_fragment" />
 </navigation>

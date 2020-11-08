@@ -1,4 +1,4 @@
-package de.traendy.nocontact.ui.add
+package de.traendy.nocontact.ui.add.misc
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -14,6 +14,7 @@ import de.traendy.database.database.QrCodeDatabase
 import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.model.QrCode
 import de.traendy.database.repository.QrCodeRepository
+import de.traendy.nocontact.MainActivity
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.FragmentQrcodeListBinding
 
@@ -67,5 +68,10 @@ class QrCodeFragment : Fragment() {
 
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).hideAddButton(false)
     }
 }
