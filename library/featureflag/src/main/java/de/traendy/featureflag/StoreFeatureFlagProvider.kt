@@ -13,6 +13,7 @@ class StoreFeatureFlagProvider : FeatureFlagProvider {
                 FeatureFlag.BOTTOM_SHEET_ADD_DIALOG -> false
                 FeatureFlag.SHARE_CONTENT -> false
                 FeatureFlag.MAIL_QR_CODE -> false
+                FeatureFlag.TWITTER_QR_CODE -> false
             }
         } else {
             // TestSettings should never be shipped to users

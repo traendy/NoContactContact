@@ -1,6 +1,5 @@
 # Possible Features
 * Creating Custom QrCode for
-  * mail
   * Contact data
   * linkedIn
   * Twitter
@@ -22,6 +21,8 @@
 * Creating QR Codes
 * Sharing content of QR Codes
 * Deleting QR Codes
+* * Creating Custom QrCode for
+  * mail
 
 # hints
 https://www.qr-code-generator.com/solutions/email-qr-code/

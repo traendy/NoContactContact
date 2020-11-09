@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:theme="@style/Theme.NoContactContact"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -62,7 +63,8 @@
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/addButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/ic_baseline_qr_code_24" />
+            app:srcCompat="@drawable/ic_baseline_qr_code_24"
+            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mailButton"
@@ -74,7 +76,22 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/addButton"
-            app:srcCompat="@drawable/ic_baseline_alternate_email_24" />
+            app:srcCompat="@drawable/ic_baseline_alternate_email_24"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/twitterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/add_qr_code"
+            android:src="@drawable/ic_twitter_social_icon_circle_color_svg"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/mailButton"
+            app:layout_constraintEnd_toStartOf="@id/miscButton"
+            app:maxImageSize="48dp"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

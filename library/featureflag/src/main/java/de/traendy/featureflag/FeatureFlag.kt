@@ -20,5 +20,10 @@ enum class FeatureFlag(
         "feature.mail.qrcode",
         "Adds mail Qr Code",
         "Allows the user to generate a email based qr code."
+    ),
+    TWITTER_QR_CODE(
+        "feature.twitter.qrcode",
+        "Adds twitter handle Qr Code",
+        "Allows the user to generate a twitter handle based qr code."
     )
 }

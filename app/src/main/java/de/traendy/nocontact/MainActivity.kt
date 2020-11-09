@@ -12,6 +12,7 @@ import de.traendy.nocontact.databinding.ActivityMainBinding
 import de.traendy.nocontact.ui.add.misc.AddQrCodeBottomSheetDialog
 import de.traendy.nocontact.ui.add.misc.AddQrCodeDialog
 import de.traendy.nocontact.ui.add.misc.AddQrCodeFragmentDialog
+import de.traendy.nocontact.ui.add.twitter.AddTwitterFragment
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentDirections
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         binding.addButton.setOnClickListener { revealAddButtons() }
         binding.miscButton.setOnClickListener { openDialog() }
         binding.mailButton.setOnClickListener { openMailFragment() }
+        binding.twitterButton.setOnClickListener { openTwitterDialog() }
+    }
+
+    private fun openTwitterDialog() {
+        val dialogFragment = AddTwitterFragment()
+        dialogFragment.show(supportFragmentManager, "twitterDialog")
     }
 
     private fun openMailFragment() {
@@ -43,6 +50,14 @@ class MainActivity : AppCompatActivity() {
                 binding.mailButton.visibility = View.VISIBLE
             }
         }
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.TWITTER_QR_CODE)) {
+            if (binding.twitterButton.visibility == View.VISIBLE) {
+                binding.twitterButton.visibility = View.GONE
+            } else {
+                binding.twitterButton.visibility = View.VISIBLE
+            }
+        }
+
         if (binding.miscButton.visibility == View.VISIBLE) {
             binding.miscButton.visibility = View.GONE
         } else {
