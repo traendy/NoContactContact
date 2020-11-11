@@ -34,4 +34,5 @@
     <string name="twitter_explanation">To create an QR code sharing your twitter handle add it here.</string>
     <string name="twitter_headline">Twitter QR code</string>
     <string name="create_qr_code_button_text">Create QR Code</string>
+    <string name="qr_code_preview_image_desciption">QR code preview</string>
 </resources>

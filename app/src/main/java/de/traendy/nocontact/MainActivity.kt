@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             binding.addButton.visibility = View.GONE
             binding.mailButton.visibility = View.GONE
             binding.miscButton.visibility = View.GONE
+            binding.twitterButton.visibility = View.GONE
         } else {
             binding.addButton.visibility = View.VISIBLE
         }

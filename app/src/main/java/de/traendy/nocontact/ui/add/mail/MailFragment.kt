@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import de.traendy.database.database.QrCodeDatabase
 import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.repository.QrCodeRepository
@@ -33,6 +35,13 @@ class MailFragment : Fragment() {
     ): View? {
         binding = MailFragmentBinding.inflate(inflater, container, false)
         binding.createQrCodeButton.setOnClickListener { addQrCode() }
+        val size = binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
+        binding.emailInputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, email = text.toString()) }
+        binding.subjectTextInputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, subject = text.toString()) }
+        binding.bodyTextinputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, body = text.toString()) }
+        viewModel.preview.observe(viewLifecycleOwner, Observer {
+            binding.preview.setImageBitmap(it)
+        })
         return binding.root
     }
 
