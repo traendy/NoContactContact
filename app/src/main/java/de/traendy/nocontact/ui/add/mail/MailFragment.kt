@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import de.traendy.database.database.QrCodeDatabase
 import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.repository.QrCodeRepository
@@ -16,51 +15,70 @@ import de.traendy.nocontact.MainActivity
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.MailFragmentBinding
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentViewModelFactory
+import kotlinx.coroutines.FlowPreview
 
 class MailFragment : Fragment() {
 
     private val viewModel: MailViewModel by viewModels {
         val qrCodeRepository = QrCodeRepository(
-            QrCodeDataSource(
-                QrCodeDatabase.provideDatabase(requireContext()).qrCodeDao()
-            )
+                QrCodeDataSource(
+                        QrCodeDatabase.provideDatabase(requireContext()).qrCodeDao()
+                )
         )
         QrCodeFragmentViewModelFactory(qrCodeRepository)
     }
     private lateinit var binding: MailFragmentBinding
 
+    @FlowPreview
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = MailFragmentBinding.inflate(inflater, container, false)
-        binding.createQrCodeButton.setOnClickListener { addQrCode() }
         val size = binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
-        binding.emailInputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, email = text.toString()) }
-        binding.subjectTextInputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, subject = text.toString()) }
-        binding.bodyTextinputLayout.editText?.doOnTextChanged { text, start, before, count -> viewModel.updateQrCodePreview(size, body = text.toString()) }
-        viewModel.preview.observe(viewLifecycleOwner, Observer {
-            binding.preview.setImageBitmap(it)
-        })
+        binding.apply {
+            createQrCodeButton.setOnClickListener { addQrCode() }
+            emailInputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.upDateEMail(text) }
+            subjectTextInputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.upDateSubject(text) }
+            bodyTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.upDateBody(text) }
+            titleTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.updateTitle(text) }
+        }
+        viewModel.apply {
+            preview.observe(viewLifecycleOwner, { qrCodeBitmap ->
+                binding.preview.setImageBitmap(qrCodeBitmap)
+            })
+            eMail.observe(viewLifecycleOwner, {
+                viewModel.updateQrCodePreview(size)
+            })
+            subject.observe(viewLifecycleOwner, {
+                viewModel.updateQrCodePreview(size)
+            })
+            body.observe(viewLifecycleOwner, {
+                viewModel.updateQrCodePreview(size)
+            })
+//            title.observe(viewLifecycleOwner, {
+//                binding.titleTextinputLayout.editText?.setText(it)
+//                binding.titleTextinputLayout.editText?.post { binding.titleTextinputLayout.editText?.setSelection(it.length) }
+//            })
+        }
         return binding.root
     }
 
     private fun addQrCode() {
-        var error = false
-        if (binding.titleTextinputLayout.editText?.text.isNullOrBlank()) {
-            binding.titleTextinputLayout.error = getString(R.string.mandatory_info_error)
-            error = true
-        }
-        if (binding.emailInputLayout.editText?.text.isNullOrBlank()) {
-            binding.emailInputLayout.error = getString(R.string.mandatory_info_error)
-            error = true
-        }
-        if (!error) {
-            val title = binding.titleTextinputLayout.editText?.text
-            val eMail = binding.emailInputLayout.editText?.text
-            val subject = binding.subjectTextInputLayout.editText?.text
-            val body = binding.bodyTextinputLayout.editText?.text
-            viewModel.onClick(title, eMail, subject, body)
+        binding.apply {
+            var error = false
+            if (titleTextinputLayout.editText?.text.isNullOrBlank()) {
+                titleTextinputLayout.error = getString(R.string.mandatory_info_error)
+                error = true
+            }
+            if (emailInputLayout.editText?.text.isNullOrBlank()) {
+                emailInputLayout.error = getString(R.string.mandatory_info_error)
+                error = true
+            }
+            if (!error) {
+                val title = titleTextinputLayout.editText?.text
+                viewModel.onClick(title.toString())
+            }
         }
     }
 

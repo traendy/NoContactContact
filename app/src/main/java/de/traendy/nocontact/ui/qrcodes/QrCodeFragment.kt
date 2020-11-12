@@ -65,9 +65,7 @@ class QrCodeFragment : Fragment() {
             putExtra(Intent.EXTRA_TEXT, qrCode.content)
             type = "text/plain"
         }
-
-        val shareIntent = Intent.createChooser(sendIntent, null)
-        startActivity(shareIntent)
+        startActivity(Intent.createChooser(sendIntent, null))
     }
 
     override fun onResume() {

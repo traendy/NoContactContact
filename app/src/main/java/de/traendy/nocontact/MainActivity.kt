@@ -15,19 +15,23 @@ import de.traendy.nocontact.ui.add.misc.AddQrCodeFragmentDialog
 import de.traendy.nocontact.ui.add.twitter.AddTwitterFragment
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentDirections
 
+const val ROTATION_45 = 45f
+const val ROTATION_0 = 0f
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var rotation = 0f
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.addButton.setOnClickListener { revealAddButtons() }
-        binding.miscButton.setOnClickListener { openDialog() }
-        binding.mailButton.setOnClickListener { openMailFragment() }
-        binding.twitterButton.setOnClickListener { openTwitterDialog() }
+        binding.apply {
+            addButton.setOnClickListener { revealAddButtons() }
+            miscButton.setOnClickListener { openDialog() }
+            mailButton.setOnClickListener { openMailFragment() }
+            twitterButton.setOnClickListener { openTwitterDialog() }
+        }
     }
 
     private fun openTwitterDialog() {
@@ -43,40 +47,46 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun revealAddButtons() {
-        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.MAIL_QR_CODE)) {
-            if (binding.mailButton.visibility == View.VISIBLE) {
-                binding.mailButton.visibility = View.GONE
-            } else {
-                binding.mailButton.visibility = View.VISIBLE
-            }
-        }
-        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.TWITTER_QR_CODE)) {
-            if (binding.twitterButton.visibility == View.VISIBLE) {
-                binding.twitterButton.visibility = View.GONE
-            } else {
-                binding.twitterButton.visibility = View.VISIBLE
-            }
-        }
-
-        if (binding.miscButton.visibility == View.VISIBLE) {
-            binding.miscButton.visibility = View.GONE
-        } else {
-            binding.miscButton.visibility = View.VISIBLE
-        }
-        rotation += 45f
+        switchVisibilityMailButton()
+        switchVisibilityTwitterButton()
+        switchVisibility(binding.miscButton)
+        rotation += ROTATION_45
         rotateAddButton(rotation)
     }
 
-    private fun rotateAddButton(rotation: Float) {
-        val matrix = Matrix()
-        binding.addButton.scaleType = ImageView.ScaleType.MATRIX
+    private fun switchVisibility(view: View) {
+        view.apply {
+            visibility = if (visibility == View.VISIBLE) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
+    }
 
-        matrix.postRotate(
-            rotation,
-            (binding.addButton.drawable.bounds.width() / 2).toFloat(),
-            (binding.addButton.drawable.bounds.height() / 2).toFloat()
-        )
-        binding.addButton.imageMatrix = matrix
+    private fun switchVisibilityTwitterButton() {
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.TWITTER_QR_CODE)) {
+            switchVisibility(binding.twitterButton)
+        }
+    }
+
+    private fun switchVisibilityMailButton() {
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.MAIL_QR_CODE)) {
+            switchVisibility(binding.mailButton)
+        }
+    }
+
+    private fun rotateAddButton(rotation: Float) {
+        binding.addButton.apply {
+            scaleType = ImageView.ScaleType.MATRIX
+            imageMatrix = Matrix().apply {
+                postRotate(
+                    rotation,
+                    (drawable.bounds.width() / 2).toFloat(),
+                    (drawable.bounds.height() / 2).toFloat()
+                )
+            }
+        }
     }
 
     private fun openDialog() {
@@ -90,15 +100,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun hideAddButton(hide: Boolean) {
-        if (hide) {
-            binding.addButton.visibility = View.GONE
-            binding.mailButton.visibility = View.GONE
-            binding.miscButton.visibility = View.GONE
-            binding.twitterButton.visibility = View.GONE
-        } else {
-            binding.addButton.visibility = View.VISIBLE
+        binding.apply {
+            if (hide) {
+                addButton.visibility = View.GONE
+                mailButton.visibility = View.GONE
+                miscButton.visibility = View.GONE
+                twitterButton.visibility = View.GONE
+            } else {
+                addButton.visibility = View.VISIBLE
+            }
         }
-        rotation = 0f
+        rotation = ROTATION_0
         rotateAddButton(rotation)
     }
 }

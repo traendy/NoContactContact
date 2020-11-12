@@ -6,8 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.traendy.database.model.QrCode
 import de.traendy.database.repository.QrCodeRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class QrCodeFragmentViewModel constructor(private val qrCodeRepository: QrCodeRepository) :
@@ -16,7 +19,6 @@ class QrCodeFragmentViewModel constructor(private val qrCodeRepository: QrCodeRe
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + SupervisorJob()
-    private lateinit var job: Job
 
     private val _qrCodes = MutableLiveData<Collection<QrCode>>()
     val qrCodes: LiveData<Collection<QrCode>> = _qrCodes
