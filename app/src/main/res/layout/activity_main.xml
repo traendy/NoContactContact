@@ -92,6 +92,20 @@
             app:layout_constraintEnd_toStartOf="@id/miscButton"
             app:maxImageSize="48dp"
             tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/instagramButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/add_qr_code"
+            android:src="@drawable/ic_icon_instagram_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/twitterButton"
+            app:layout_constraintEnd_toStartOf="@id/miscButton"
+            app:maxImageSize="48dp"
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

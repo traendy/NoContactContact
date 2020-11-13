@@ -31,8 +31,11 @@
     <string name="share_disclaimer">The provided inforamtion is only shared with people scanning the created QR code.</string>
     <string name="qr_code_title_input">QR code title:</string>
     <string name="twitter_handle">Twitter handle:</string>
+    <string name="instagram_handle">Instagram handle:</string>
     <string name="twitter_explanation">To create an QR code sharing your twitter handle add it here.</string>
+    <string name="instagram_explanation">To create an QR code sharing your Instagram handle add it here.</string>
     <string name="twitter_headline">Twitter QR code</string>
+    <string name="instagram_headline">Instagram QR code</string>
     <string name="create_qr_code_button_text">Create QR Code</string>
     <string name="qr_code_preview_image_desciption">QR code preview</string>
 </resources>

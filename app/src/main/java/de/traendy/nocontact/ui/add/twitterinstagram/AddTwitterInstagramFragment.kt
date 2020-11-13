@@ -1,4 +1,4 @@
-package de.traendy.nocontact.ui.add.twitter
+package de.traendy.nocontact.ui.add.twitterinstagram
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,13 +15,18 @@ import de.traendy.nocontact.ui.add.misc.AddQrCodeViewModel
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentViewModelFactory
 import java.util.regex.Pattern
 
-class AddTwitterFragment : DialogFragment() {
+enum class SocialMedia {
+    TWITTER,
+    INSTAGRAM
+}
+
+class AddTwitterInstagramFragment(private val socialMedia: SocialMedia) : DialogFragment() {
 
     private val viewModel: AddQrCodeViewModel by viewModels {
         val qrCodeRepository = QrCodeRepository(
-            QrCodeDataSource(
-                QrCodeDatabase.provideDatabase(requireContext()).qrCodeDao()
-            )
+                QrCodeDataSource(
+                        QrCodeDatabase.provideDatabase(requireContext()).qrCodeDao()
+                )
         )
         QrCodeFragmentViewModelFactory(qrCodeRepository)
     }
@@ -52,7 +57,7 @@ class AddTwitterFragment : DialogFragment() {
             val twitterPattern = Pattern.compile("^@?(\\w){1,15}\$")
             if (!twitterPattern.matcher(content.trim()).matches()) {
                 binding.twitterInputLayout.error =
-                    binding.root.context.getString(R.string.twitter_handle_wrong)
+                        binding.root.context.getString(R.string.twitter_handle_wrong)
                 error = true
             }
             if (!error) {
@@ -60,12 +65,32 @@ class AddTwitterFragment : DialogFragment() {
                 dialog?.dismiss()
             }
         }
+        when (socialMedia) {
+            SocialMedia.TWITTER -> setTwitterText()
+            SocialMedia.INSTAGRAM -> setInstagramText()
+        }
         return binding.root
+    }
+
+    private fun setInstagramText() {
+        binding.title.setText(R.string.instagram_headline)
+        binding.twitterDescription.setText(R.string.instagram_explanation)
+        binding.twitterInputLayout.hint = getString(R.string.instagram_handle)
+    }
+
+    private fun setTwitterText() {
+        binding.title.setText(R.string.twitter_headline)
+        binding.twitterDescription.setText(R.string.twitter_explanation)
+        binding.twitterInputLayout.hint = getString(R.string.twitter_handle)
     }
 
     private fun removeAtAndAddUrl(content: String): String {
         val temp = content.trim().replace("@", "")
-        return "twitter.com/$temp"
+        return when (socialMedia) {
+            SocialMedia.TWITTER -> "https://www.twitter.com/$temp"
+            SocialMedia.INSTAGRAM -> "https://www.instagram.com/$temp"
+        }
+
     }
 
 }

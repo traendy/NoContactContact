@@ -14,6 +14,7 @@ class StoreFeatureFlagProvider : FeatureFlagProvider {
                 FeatureFlag.SHARE_CONTENT -> false
                 FeatureFlag.MAIL_QR_CODE -> false
                 FeatureFlag.TWITTER_QR_CODE -> false
+                FeatureFlag.INSTAGRAM_QR_CODE -> false
             }
         } else {
             // TestSettings should never be shipped to users

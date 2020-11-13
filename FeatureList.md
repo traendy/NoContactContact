@@ -1,7 +1,4 @@
 # Todos
-* add livedata and state change surival to all fragments
-* refactor qrCode builder
-* Add factory?
 
 # Possible Features
 * Creating Custom QrCode for

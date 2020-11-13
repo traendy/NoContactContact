@@ -12,7 +12,8 @@ import de.traendy.nocontact.databinding.ActivityMainBinding
 import de.traendy.nocontact.ui.add.misc.AddQrCodeBottomSheetDialog
 import de.traendy.nocontact.ui.add.misc.AddQrCodeDialog
 import de.traendy.nocontact.ui.add.misc.AddQrCodeFragmentDialog
-import de.traendy.nocontact.ui.add.twitter.AddTwitterFragment
+import de.traendy.nocontact.ui.add.twitterinstagram.AddTwitterInstagramFragment
+import de.traendy.nocontact.ui.add.twitterinstagram.SocialMedia
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentDirections
 
 const val ROTATION_45 = 45f
@@ -31,17 +32,23 @@ class MainActivity : AppCompatActivity() {
             miscButton.setOnClickListener { openDialog() }
             mailButton.setOnClickListener { openMailFragment() }
             twitterButton.setOnClickListener { openTwitterDialog() }
+            instagramButton.setOnClickListener { openInstagramDialog() }
         }
     }
 
     private fun openTwitterDialog() {
-        val dialogFragment = AddTwitterFragment()
+        val dialogFragment = AddTwitterInstagramFragment(SocialMedia.TWITTER)
         dialogFragment.show(supportFragmentManager, "twitterDialog")
+    }
+
+    private fun openInstagramDialog() {
+        val dialogFragment = AddTwitterInstagramFragment(SocialMedia.INSTAGRAM)
+        dialogFragment.show(supportFragmentManager, "instagramDialog")
     }
 
     private fun openMailFragment() {
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(QrCodeFragmentDirections.actionQrCodeFragmentToMailFragment())
     }
@@ -49,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     private fun revealAddButtons() {
         switchVisibilityMailButton()
         switchVisibilityTwitterButton()
+        switchVisibilityInstagramButton()
         switchVisibility(binding.miscButton)
         rotation += ROTATION_45
         rotateAddButton(rotation)
@@ -67,6 +75,12 @@ class MainActivity : AppCompatActivity() {
     private fun switchVisibilityTwitterButton() {
         if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.TWITTER_QR_CODE)) {
             switchVisibility(binding.twitterButton)
+        }
+    }
+
+    private fun switchVisibilityInstagramButton() {
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.INSTAGRAM_QR_CODE)) {
+            switchVisibility(binding.instagramButton)
         }
     }
 
@@ -106,6 +120,7 @@ class MainActivity : AppCompatActivity() {
                 mailButton.visibility = View.GONE
                 miscButton.visibility = View.GONE
                 twitterButton.visibility = View.GONE
+                instagramButton.visibility = View.GONE
             } else {
                 addButton.visibility = View.VISIBLE
             }
