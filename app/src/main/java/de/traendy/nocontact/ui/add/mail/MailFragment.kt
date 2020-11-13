@@ -56,10 +56,6 @@ class MailFragment : Fragment() {
             body.observe(viewLifecycleOwner, {
                 viewModel.updateQrCodePreview(size)
             })
-//            title.observe(viewLifecycleOwner, {
-//                binding.titleTextinputLayout.editText?.setText(it)
-//                binding.titleTextinputLayout.editText?.post { binding.titleTextinputLayout.editText?.setSelection(it.length) }
-//            })
         }
         return binding.root
     }

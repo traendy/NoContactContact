@@ -23,7 +23,7 @@ class AddQrCodeDialog {
             var error = false
             if (name.trim().isEmpty()) {
                 binding.nameInputLayout.error =
-                    binding.root.context.getString(R.string.name_to_short_or_missing)
+                    binding.root.context.getString(R.string.title_to_short_or_missing)
                 error = true
             }
             if (content.trim().isEmpty()) {

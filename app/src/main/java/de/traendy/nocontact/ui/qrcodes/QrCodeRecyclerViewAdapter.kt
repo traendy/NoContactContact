@@ -11,6 +11,7 @@ import de.traendy.featureflag.FeatureFlag
 import de.traendy.featureflag.RuntimeBehavior
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.FragmentQrcodeListElementBinding
+import de.traendy.nocontact.qrcode.replaceSpaces
 import de.traendy.qrcode.QrCodeGenerator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +59,7 @@ class QrCodeRecyclerViewAdapter(private val deleteCallback: (QrCode) -> Unit, pr
             binding.sectionLabel.text = qrCode.title
             binding.imageView.setImageBitmap(
                     QrCodeGenerator().createQrCodeBitMap(
-                            qrCode.content ?: "",
+                            replaceSpaces(qrCode.content ?: ""),
                             binding.root.context.resources.getDimensionPixelSize(R.dimen.barcode_image_size)
                     )
             )

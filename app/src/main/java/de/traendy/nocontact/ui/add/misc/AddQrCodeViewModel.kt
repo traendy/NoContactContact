@@ -6,7 +6,10 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import de.traendy.database.model.QrCode
 import de.traendy.database.repository.QrCodeRepository
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 class AddQrCodeViewModel
@@ -15,7 +18,6 @@ constructor(private val qrCodeRepository: QrCodeRepository
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.IO + SupervisorJob()
-    private lateinit var job: Job
 
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = Transformations.map(_name) {

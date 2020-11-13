@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import de.traendy.database.model.QrCode
 import de.traendy.database.repository.QrCodeRepository
+import de.traendy.nocontact.qrcode.replaceSpaces
 import de.traendy.qrcode.QrCodeGenerator
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
@@ -78,10 +79,6 @@ constructor(
     fun onClick(title: String) {
         saveQrCode(title, qrCodeContentFactory(eMail.value ?: "", subject.value
                 ?: "", body.value ?: ""))
-    }
-
-    private fun replaceSpaces(text: String): String {
-        return text.replace(" ", "%20", true)
     }
 
     @FlowPreview
