@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_qrCodeFragment_to_mailFragment"
             app:destination="@id/mailFragment" />
+        <action
+            android:id="@+id/action_qrCodeFragment_to_addWlanFragment"
+            app:destination="@id/addWlanFragment" />
     </fragment>
     <fragment
         android:id="@+id/mailFragment"
         android:name="de.traendy.nocontact.ui.add.mail.MailFragment"
         android:label="MailFragment"
         tools:layout="@layout/mail_fragment" />
+    <fragment
+        android:id="@+id/addWlanFragment"
+        android:name="de.traendy.nocontact.ui.add.wlan.AddWlanFragment"
+        android:label="add_wlan_fragment"
+        tools:layout="@layout/add_wlan_fragment" />
 </navigation>

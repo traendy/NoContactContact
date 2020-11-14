@@ -4,12 +4,11 @@
 * Creating Custom QrCode for
   * Contact data
   * Xing
-  * instagram
-  4. Your Instagram URL is made up of two components: Instagram’s website address and your Instagram username, separated by slashes. For example, my Instagram’s username is @chrissysface, so the URL https://www.instagram.com/chrissysface/ would link to my profile.
   * snapshat
   * tikTok
   * Wlan
   * Phone
+  * FaceBook
   * Calendar
   * home page
   * play store
@@ -17,6 +16,8 @@
 * Collection of all scanned Qr Codes
 * Qr Code Scanning
 * Logo Qr codes for different services (linkedIn, xing etc)
+* SChreibweise von qr code angleichen
+* App ShortCuts
 
 * Test QrCode
 * Tips page for stuff like linked in
@@ -29,6 +30,7 @@
 * * Creating Custom QrCode for
   * mail
   * Twitter
+  * Instagram ( Your Instagram URL is made up of two components: Instagram’s website address and your Instagram username, separated by slashes. For example, my Instagram’s username is @chrissysface, so the URL https://www.instagram.com/chrissysface/ would link to my profile.)
 * Preview in add qr code feature
 
 # hints

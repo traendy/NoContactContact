@@ -17,18 +17,23 @@ enum class FeatureFlag(
             "Allows the user to share qr code content."
     ),
     MAIL_QR_CODE(
-            "feature.mail.qrcode",
-            "Adds mail Qr Code",
-            "Allows the user to generate a email based qr code."
+        "feature.mail.qrcode",
+        "Adds mail Qr Code",
+        "Allows the user to generate a email based qr code."
     ),
     TWITTER_QR_CODE(
-            "feature.twitter.qrcode",
-            "Adds Twitter handle Qr Code",
-            "Allows the user to generate a Twitter handle based qr code."
+        "feature.twitter.qrcode",
+        "Adds Twitter handle Qr Code",
+        "Allows the user to generate a Twitter handle based qr code."
     ),
     INSTAGRAM_QR_CODE(
-            "feature.instagram.qrcode",
-            "Adds Instagram handle Qr Code",
-            "Allows the user to generate a Instagram handle based qr code."
+        "feature.instagram.qrcode",
+        "Adds Instagram handle Qr Code",
+        "Allows the user to generate a Instagram handle based qr code."
+    ),
+    WLAN_QR_CODE(
+        "feature.wlan.qrcode",
+        "Adds wlan Qr Code",
+        "Allows the user to generate a wlan based qr code."
     )
 }

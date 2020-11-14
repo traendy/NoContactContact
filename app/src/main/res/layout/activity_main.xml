@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:theme="@style/Theme.NoContactContact"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:theme="@style/Theme.NoContactContact">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.NoContactContact.AppBarOverlay"
-        android:background="?attr/colorPrimary">
+        android:background="?attr/colorPrimary"
+        android:theme="@style/Theme.NoContactContact.AppBarOverlay">
 
         <TextView
             android:id="@+id/title"
@@ -32,8 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_graph"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:navGraph="@navigation/navigation_graph" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -46,12 +46,12 @@
             android:id="@+id/addButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            app:srcCompat="@drawable/ic_baseline_add_24"
-            android:contentDescription="@string/add_qr_code"
             android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/add_qr_code"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_baseline_add_24" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/miscButton"
@@ -104,6 +104,20 @@
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/twitterButton"
             app:layout_constraintEnd_toStartOf="@id/miscButton"
+            app:maxImageSize="48dp"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/wlanButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:contentDescription="@string/add_qr_code"
+            android:src="@drawable/ic_baseline_wifi_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/twitterButton"
+            app:layout_constraintEnd_toStartOf="@id/mailButton"
             app:maxImageSize="48dp"
             tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>

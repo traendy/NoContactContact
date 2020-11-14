@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             mailButton.setOnClickListener { openMailFragment() }
             twitterButton.setOnClickListener { openTwitterDialog() }
             instagramButton.setOnClickListener { openInstagramDialog() }
+            wlanButton.setOnClickListener { openWlanFragment() }
         }
     }
 
@@ -48,15 +49,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun openMailFragment() {
         val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
         navController.navigate(QrCodeFragmentDirections.actionQrCodeFragmentToMailFragment())
+    }
+
+    private fun openWlanFragment() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(QrCodeFragmentDirections.actionQrCodeFragmentToAddWlanFragment())
     }
 
     private fun revealAddButtons() {
         switchVisibilityMailButton()
         switchVisibilityTwitterButton()
         switchVisibilityInstagramButton()
+        switchVisibilityWlanButton()
         switchVisibility(binding.miscButton)
         rotation += ROTATION_45
         rotateAddButton(rotation)
@@ -87,6 +96,12 @@ class MainActivity : AppCompatActivity() {
     private fun switchVisibilityMailButton() {
         if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.MAIL_QR_CODE)) {
             switchVisibility(binding.mailButton)
+        }
+    }
+
+    private fun switchVisibilityWlanButton() {
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.WLAN_QR_CODE)) {
+            switchVisibility(binding.wlanButton)
         }
     }
 
@@ -121,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                 miscButton.visibility = View.GONE
                 twitterButton.visibility = View.GONE
                 instagramButton.visibility = View.GONE
+                wlanButton.visibility = View.GONE
             } else {
                 addButton.visibility = View.VISIBLE
             }
