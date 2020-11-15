@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 enum class WifiAuthType {
     NoPass,
     WEP,
-    WPA_EAP,
+    WPA2_EAP,
     WPA,
 }
 
@@ -21,52 +21,62 @@ class WifiQrCodeContentBuilder {
     private var phase2Method = ""
 
     fun addSsid(ssid: String): WifiQrCodeContentBuilder {
-        this.ssid = "S:${sanitizeSsid(ssid)}"
+        this.ssid = "S:${sanitizeSsid(ssid).trim()};"
         return this
     }
 
     fun addAuthType(authType: WifiAuthType): WifiQrCodeContentBuilder {
         val temp = when (authType) {
-            WifiAuthType.NoPass -> "nopass"
-            WifiAuthType.WEP -> "WEP"
-            WifiAuthType.WPA_EAP -> "WPA2-EAP"
-            WifiAuthType.WPA -> "WPA"
+            WifiAuthType.NoPass -> "nopass;"
+            WifiAuthType.WEP -> "WEP;"
+            WifiAuthType.WPA2_EAP -> "WPA2-EAP;"
+            WifiAuthType.WPA -> "WPA;"
         }
         this.authType = "T:$temp"
         return this
     }
 
     fun addPassword(password: String): WifiQrCodeContentBuilder {
-        this.password = "P:${sanitizePassword(password)}"
+        if (password.isNotBlank()) {
+            this.password = "P:${sanitizePassword(password)};"
+        }
         return this
     }
 
     fun addHiddenSsid(hidden: Boolean): WifiQrCodeContentBuilder {
         if (hidden) {
-            this.hidden = "H:true"
+            this.hidden = "H:true;"
         } else {
-            this.hidden = "H:false"
+            this.hidden = "H:false;"
         }
         return this
     }
 
     fun addEapMethod(eapMethod: String): WifiQrCodeContentBuilder {
-        this.eapMethod = "E:$eapMethod"
+        if (eapMethod.isNotBlank()) {
+            this.eapMethod = "E:${eapMethod.trim()};"
+        }
         return this
     }
 
     fun addAnonymousIdentity(anonymousIdentity: String): WifiQrCodeContentBuilder {
-        this.anonymousIdentity = "A:$anonymousIdentity"
+        if (anonymousIdentity.isNotBlank()) {
+            this.anonymousIdentity = "A:$anonymousIdentity;"
+        }
         return this
     }
 
     fun addIdentity(identity: String): WifiQrCodeContentBuilder {
-        this.identity = "I:$identity"
+        if (identity.isNotBlank()) {
+            this.identity = "I:${identity.trim()};"
+        }
         return this
     }
 
     fun addPhase2Method(phase2Method: String): WifiQrCodeContentBuilder {
-        this.phase2Method = "PH2:$phase2Method"
+        if (phase2Method.isNotBlank()) {
+            this.phase2Method = "PH2:${phase2Method.trim()};"
+        }
         return this
     }
 
@@ -94,6 +104,6 @@ class WifiQrCodeContentBuilder {
     }
 
     fun create(): String {
-        return "WIFI:$authType$ssid$password$hidden$eapMethod$anonymousIdentity$identity$phase2Method"
+        return "WIFI:$ssid$authType$password$hidden$eapMethod$anonymousIdentity$identity$phase2Method;"
     }
 }

@@ -40,7 +40,7 @@ class AddWlanFragment : Fragment() {
     }
 
     private fun ssidSwitched(buttonView: CompoundButton?, checked: Boolean) {
-        TODO("Not yet implemented")
+
     }
 
     private fun authTypeChanged(checkedId: Int) {
