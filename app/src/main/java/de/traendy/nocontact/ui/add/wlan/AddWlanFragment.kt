@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import de.traendy.database.database.QrCodeDatabase
@@ -13,6 +13,7 @@ import de.traendy.database.repository.QrCodeRepository
 import de.traendy.nocontact.MainActivity
 import de.traendy.nocontact.R
 import de.traendy.nocontact.databinding.AddWlanFragmentBinding
+import de.traendy.nocontact.qrcode.WifiAuthType
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentViewModelFactory
 
 class AddWlanFragment : Fragment() {
@@ -34,13 +35,16 @@ class AddWlanFragment : Fragment() {
         binding.apply {
             createQrCodeButton.setOnClickListener { addQrCode() }
             authTypeGroup.setOnCheckedChangeListener { _, checkedId -> authTypeChanged(checkedId) }
-            ssidSwitch.setOnCheckedChangeListener { buttonView, isChecked -> ssidSwitched(buttonView, isChecked) }
+            titleTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setTitle(text as String) }
+            ssidTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setSsid(text as String) }
+            passwordTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPassword(text as String) }
+            phase2MethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPhase2Method(text as String) }
+            identitiyTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setIdentity(text as String) }
+            anonymousTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setAnonymousIdentity(text as String) }
+            eapMethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setEapMethod(text as String) }
+            ssidSwitch.setOnCheckedChangeListener { _, isChecked -> viewModel.setSsidHidden(isChecked) }
         }
         return binding.root
-    }
-
-    private fun ssidSwitched(buttonView: CompoundButton?, checked: Boolean) {
-
     }
 
     private fun authTypeChanged(checkedId: Int) {
@@ -48,18 +52,22 @@ class AddWlanFragment : Fragment() {
             R.id.wep -> {
                 setWpaEapVisible(View.GONE)
                 setPasswordViewVisibility(View.VISIBLE)
+                viewModel.setAuthType(WifiAuthType.WEP)
             }
             R.id.wpa -> {
                 setWpaEapVisible(View.GONE)
                 setPasswordViewVisibility(View.VISIBLE)
+                viewModel.setAuthType(WifiAuthType.WPA)
             }
             R.id.wpaeap -> {
                 setWpaEapVisible(View.VISIBLE)
                 setPasswordViewVisibility(View.VISIBLE)
+                viewModel.setAuthType(WifiAuthType.WPA2_EAP)
             }
             R.id.nopass -> {
                 setWpaEapVisible(View.GONE)
                 setPasswordViewVisibility(View.GONE)
+                viewModel.setAuthType(WifiAuthType.NoPass)
             }
             else -> {
             }
@@ -80,7 +88,7 @@ class AddWlanFragment : Fragment() {
     }
 
     private fun addQrCode() {
-        TODO("Not yet implemented")
+        //TODO errors etc
     }
 
     override fun onResume() {
