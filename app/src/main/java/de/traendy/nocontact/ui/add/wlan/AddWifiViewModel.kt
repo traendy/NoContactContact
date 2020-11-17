@@ -24,13 +24,18 @@ constructor(
 
     private fun saveQrCode(name: String, content: String) {
         launch {
-            // TODO set content depending of authtype
             qrCodeRepository.saveQrCode(QrCode(title = name, description = "", content = content))
         }
+        _qrCodeCreated.postValue(true)
     }
 
     private val _authType = MutableLiveData<WifiAuthType>()
     val authType: LiveData<WifiAuthType> = Transformations.map(_authType) {
+        it
+    }
+
+    private val _qrCodeCreated = MutableLiveData<Boolean>()
+    val qrCodeCreated: LiveData<Boolean> = Transformations.map(_qrCodeCreated) {
         it
     }
 
@@ -283,6 +288,7 @@ constructor(
             contentBuilder.addAuthType(it)
         }
         saveQrCode(tempTitle, contentBuilder.create())
+
     }
 
     private fun addNoPassQrCode() {
@@ -307,5 +313,9 @@ constructor(
             contentBuilder.addAuthType(it)
         }
         saveQrCode(tempTitle, contentBuilder.create())
+    }
+
+    fun resetQrCodeCreated() {
+        _qrCodeCreated.postValue(false)
     }
 }

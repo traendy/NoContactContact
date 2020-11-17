@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import de.traendy.database.database.QrCodeDatabase
 import de.traendy.database.datasource.QrCodeDataSource
 import de.traendy.database.repository.QrCodeRepository
@@ -53,8 +54,16 @@ class AddWifiFragment : Fragment() {
             ssidError.observe(viewLifecycleOwner, { if (it) binding.ssidTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.ssidTextinputLayout.error = null })
             phase2MethodError.observe(viewLifecycleOwner, { if (it) binding.phase2MethodTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.phase2MethodTextinputLayout.error = null })
             authTypeError.observe(viewLifecycleOwner, { if (it) binding.authTypeError.text = getString(R.string.mandatory_info_error) else binding.authTypeError.text = "" })
+            qrCodeCreated.observe(viewLifecycleOwner, { it?.let { goBackInStack(it) } })
         }
         return binding.root
+    }
+
+    private fun goBackInStack(qrCodeCreated: Boolean) {
+        viewModel.resetQrCodeCreated()
+        if (qrCodeCreated) {
+            findNavController().popBackStack()
+        }
     }
 
     private fun authTypeChanged(checkedId: Int) {
