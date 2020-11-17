@@ -16,9 +16,9 @@ import de.traendy.nocontact.databinding.AddWlanFragmentBinding
 import de.traendy.nocontact.qrcode.WifiAuthType
 import de.traendy.nocontact.ui.qrcodes.QrCodeFragmentViewModelFactory
 
-class AddWlanFragment : Fragment() {
+class AddWifiFragment : Fragment() {
 
-    private val viewModel: AddWlanViewModel by viewModels {
+    private val viewModel: AddWifiViewModel by viewModels {
         val qrCodeRepository = QrCodeRepository(
                 QrCodeDataSource(
                         QrCodeDatabase.provideDatabase(requireContext()).qrCodeDao()
@@ -35,14 +35,24 @@ class AddWlanFragment : Fragment() {
         binding.apply {
             createQrCodeButton.setOnClickListener { addQrCode() }
             authTypeGroup.setOnCheckedChangeListener { _, checkedId -> authTypeChanged(checkedId) }
-            titleTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setTitle(text as String) }
-            ssidTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setSsid(text as String) }
-            passwordTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPassword(text as String) }
-            phase2MethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPhase2Method(text as String) }
-            identitiyTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setIdentity(text as String) }
-            anonymousTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setAnonymousIdentity(text as String) }
-            eapMethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setEapMethod(text as String) }
+            titleTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setTitle(text.toString()) }
+            ssidTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setSsid(text.toString()) }
+            passwordTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPassword(text.toString()) }
+            phase2MethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setPhase2Method(text.toString()) }
+            identitiyTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setIdentity(text.toString()) }
+            anonymousTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setAnonymousIdentity(text.toString()) }
+            eapMethodTextinputLayout.editText?.doOnTextChanged { text, _, _, _ -> viewModel.setEapMethod(text.toString()) }
             ssidSwitch.setOnCheckedChangeListener { _, isChecked -> viewModel.setSsidHidden(isChecked) }
+        }
+        viewModel.apply {
+            titleError.observe(viewLifecycleOwner, { if (it) binding.titleTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.titleTextinputLayout.error = null })
+            passwordError.observe(viewLifecycleOwner, { if (it) binding.passwordTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.passwordTextinputLayout.error = null })
+            anonymousIdentityError.observe(viewLifecycleOwner, { if (it) binding.anonymousTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.anonymousTextinputLayout.error = null })
+            eapMethodError.observe(viewLifecycleOwner, { if (it) binding.eapMethodTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.eapMethodTextinputLayout.error = null })
+            identityError.observe(viewLifecycleOwner, { if (it) binding.identitiyTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.identitiyTextinputLayout.error = null })
+            ssidError.observe(viewLifecycleOwner, { if (it) binding.ssidTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.ssidTextinputLayout.error = null })
+            phase2MethodError.observe(viewLifecycleOwner, { if (it) binding.phase2MethodTextinputLayout.error = getString(R.string.mandatory_info_error) else binding.phase2MethodTextinputLayout.error = null })
+            authTypeError.observe(viewLifecycleOwner, { if (it) binding.authTypeError.text = getString(R.string.mandatory_info_error) else binding.authTypeError.text = "" })
         }
         return binding.root
     }
@@ -88,7 +98,7 @@ class AddWlanFragment : Fragment() {
     }
 
     private fun addQrCode() {
-        //TODO errors etc
+        viewModel.addQrCode()
     }
 
     override fun onResume() {

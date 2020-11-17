@@ -24,7 +24,7 @@
         tools:layout="@layout/mail_fragment" />
     <fragment
         android:id="@+id/addWlanFragment"
-        android:name="de.traendy.nocontact.ui.add.wlan.AddWlanFragment"
+        android:name="de.traendy.nocontact.ui.add.wlan.AddWifiFragment"
         android:label="add_wlan_fragment"
         tools:layout="@layout/add_wlan_fragment" />
 </navigation>

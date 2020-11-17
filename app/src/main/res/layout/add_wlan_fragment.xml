@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="16dp"
-    tools:context=".ui.add.wlan.AddWlanFragment">
+    tools:context=".ui.add.wlan.AddWifiFragment">
 
     <ScrollView
         android:id="@+id/scrollContainer"
@@ -76,6 +76,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="nopass" />
+
+                <TextView
+                    android:id="@+id/authTypeError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/design_default_color_error" />
+
             </RadioGroup>
 
             <com.google.android.material.textfield.TextInputLayout
