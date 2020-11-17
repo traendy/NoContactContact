@@ -75,40 +75,40 @@ constructor(
     }
 
     fun setPhase2Method(phase2Method: String) {
-        _phase2Method.postValue(phase2Method)
+        _phase2Method.value = phase2Method
     }
 
     fun setIdentity(identity: String) {
-        _identity.postValue(identity)
+        _identity.value = identity
     }
 
     fun setAnonymousIdentity(anonymousIdentity: String) {
-        _anonymousIdentity.postValue(anonymousIdentity)
+        _anonymousIdentity.value = anonymousIdentity
     }
 
     fun setEapMethod(eapMethod: String) {
-        _eapMethod.postValue(eapMethod)
+        _eapMethod.value = eapMethod
     }
 
     fun setSsidHidden(hidden: Boolean) {
-        _hidden.postValue(hidden)
+        _hidden.value = hidden
     }
 
     fun setPassword(password: String) {
-        _password.postValue(password)
+        _password.value = password
     }
 
     fun setSsid(ssid: String) {
-        _ssid.postValue(ssid)
+        _ssid.value = ssid
     }
 
 
     fun setTitle(title: String) {
-        _title.postValue(title)
+        _title.value = title
     }
 
     fun setAuthType(authType: WifiAuthType) {
-        _authType.postValue(authType)
+        _authType.value = authType
         _authTypeError.postValue(false)
     }
 
@@ -125,40 +125,67 @@ constructor(
     }
 
     private fun addWPAQrCode() {
-        addWEPQrCode()
+        val contentBuilder = WifiQrCodeContentBuilder()
+        val tempTitle: String
+        if (_title.value.isNullOrBlank()) {
+            _titleError.postValue(true)
+            return
+        } else {
+            tempTitle = _title.value ?: ""
+            _titleError.postValue(false)
+        }
+        if (_ssid.value.isNullOrBlank()) {
+            _ssidError.postValue(true)
+            return
+        } else {
+            contentBuilder.addSsid(_ssid.value ?: "")
+            _ssidError.postValue(false)
+        }
+        if (_password.value.isNullOrBlank()) {
+            _passwordError.postValue(true)
+            return
+        } else {
+            contentBuilder.addPassword(_password.value ?: "")
+            _passwordError.postValue(false)
+        }
+        _hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _authType.value?.let {
+            contentBuilder.addAuthType(it)
+        }
+        saveQrCode(tempTitle, contentBuilder.create())
     }
 
     private fun addWPA2EAPQrCode() {
         val contentBuilder = WifiQrCodeContentBuilder()
         val tempTitle: String
-        if (title.value.isNullOrBlank()) {
+        if (_title.value.isNullOrBlank()) {
             _titleError.postValue(true)
             return
         } else {
-            tempTitle = title.value ?: ""
+            tempTitle = _title.value ?: ""
             _titleError.postValue(false)
         }
-        if (ssid.value.isNullOrBlank()) {
+        if (_ssid.value.isNullOrBlank()) {
             _ssidError.postValue(true)
             return
         } else {
-            contentBuilder.addSsid(ssid.value ?: "")
+            contentBuilder.addSsid(_ssid.value ?: "")
             _ssidError.postValue(false)
         }
-        if (password.value.isNullOrBlank()) {
+        if (_password.value.isNullOrBlank()) {
             _passwordError.postValue(true)
             return
         } else {
-            contentBuilder.addPassword(password.value ?: "")
+            contentBuilder.addPassword(_password.value ?: "")
             _passwordError.postValue(false)
         }
-        hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _hidden.value?.let { contentBuilder.addHiddenSsid(true) }
 
-        if (eapMethod.value.isNullOrBlank()) {
+        if (_eapMethod.value.isNullOrBlank()) {
             _eapMethodError.postValue(true)
             return
         } else {
-            contentBuilder.addEapMethod(eapMethod.value ?: "")
+            contentBuilder.addEapMethod(_eapMethod.value ?: "")
             _eapMethodError.postValue(false)
         }
 
@@ -176,14 +203,16 @@ constructor(
             _anonymousIdentityError.postValue(false)
             _identityError.postValue(false)
         }
-        if (phase2Method.value.isNullOrBlank()) {
+        if (_phase2Method.value.isNullOrBlank()) {
             _phase2MethodError.postValue(true)
             return
         } else {
-            contentBuilder.addPhase2Method(phase2Method.value ?: "")
+            contentBuilder.addPhase2Method(_phase2Method.value ?: "")
             _phase2MethodError.postValue(false)
         }
-
+        _authType.value?.let {
+            contentBuilder.addAuthType(it)
+        }
         saveQrCode(tempTitle, contentBuilder.create())
     }
 
@@ -228,49 +257,55 @@ constructor(
     private fun addWEPQrCode() {
         val contentBuilder = WifiQrCodeContentBuilder()
         val tempTitle: String
-        if (title.value.isNullOrBlank()) {
+        if (_title.value.isNullOrBlank()) {
             _titleError.postValue(true)
             return
         } else {
-            tempTitle = title.value ?: ""
+            tempTitle = _title.value ?: ""
             _titleError.postValue(false)
         }
-        if (ssid.value.isNullOrBlank()) {
+        if (_ssid.value.isNullOrBlank()) {
             _ssidError.postValue(true)
             return
         } else {
-            contentBuilder.addSsid(ssid.value ?: "")
+            contentBuilder.addSsid(_ssid.value ?: "")
             _ssidError.postValue(false)
         }
-        if (password.value.isNullOrBlank()) {
+        if (_password.value.isNullOrBlank()) {
             _passwordError.postValue(true)
             return
         } else {
-            contentBuilder.addPassword(password.value ?: "")
+            contentBuilder.addPassword(_password.value ?: "")
             _passwordError.postValue(false)
         }
-        hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _authType.value?.let {
+            contentBuilder.addAuthType(it)
+        }
         saveQrCode(tempTitle, contentBuilder.create())
     }
 
     private fun addNoPassQrCode() {
         val contentBuilder = WifiQrCodeContentBuilder()
         val tempTitle: String
-        if (title.value.isNullOrBlank()) {
+        if (_title.value.isNullOrBlank()) {
             _titleError.postValue(true)
             return
         } else {
-            tempTitle = title.value ?: ""
+            tempTitle = _title.value ?: ""
             _titleError.postValue(false)
         }
-        if (ssid.value.isNullOrBlank()) {
+        if (_ssid.value.isNullOrBlank()) {
             _ssidError.postValue(true)
             return
         } else {
-            contentBuilder.addSsid(ssid.value ?: "")
+            contentBuilder.addSsid(_ssid.value ?: "")
             _ssidError.postValue(false)
         }
-        hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _hidden.value?.let { contentBuilder.addHiddenSsid(true) }
+        _authType.value?.let {
+            contentBuilder.addAuthType(it)
+        }
         saveQrCode(tempTitle, contentBuilder.create())
     }
 }
