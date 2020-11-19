@@ -39,7 +39,7 @@ class AddWifiTest {
             .around(ScreenshotTestWatcher())
 
     @Test
-    fun addWifiTest() {
+    fun addWifiWpaTest() {
         val targetContext: Context = ApplicationProvider.getApplicationContext()
         val floatingActionButton = onView(
                 allOf(withId(R.id.addButton), withContentDescription("Add QR Code."),
@@ -96,7 +96,7 @@ class AddWifiTest {
                         isDisplayed()))
         materialButton2.perform(click())
 
-//        authTypeErrorView.check(matches(not(isDisplayed())))
+        authTypeErrorView.check(matches(withText("")))
 
         val textInputEditText = onView(
                 childAtPosition(
@@ -105,7 +105,7 @@ class AddWifiTest {
                                 0),
                         0))
 
-        textInputEditText.check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
+        onView(withId(R.id.titleTextinputLayout)).check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
 
         textInputEditText.perform(scrollTo(), replaceText("testwifi"), closeSoftKeyboard())
 
@@ -127,7 +127,7 @@ class AddWifiTest {
                         0))
         textInputEditText2.perform(scrollTo(), replaceText("testssid"), closeSoftKeyboard())
 
-        textInputEditText2.check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
+        onView(withId(R.id.ssidTextinputLayout)).check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
 
         val materialButton4 = onView(
                 allOf(withId(R.id.createQrCodeButton), withText("Create QR Code"),
@@ -145,7 +145,7 @@ class AddWifiTest {
                                 withId(R.id.passwordTextinputLayout),
                                 0),
                         0))
-        textInputEditText3.check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
+        onView(withId(R.id.passwordTextinputLayout)).check(matches(hasTextInputLayoutHintText(targetContext.resources.getString(R.string.mandatory_info_error))))
         textInputEditText3.perform(scrollTo(), replaceText("12345678"), closeSoftKeyboard())
 
         val materialButton5 = onView(
@@ -158,7 +158,7 @@ class AddWifiTest {
                         isDisplayed()))
         materialButton5.perform(click())
 
-        onView(allOf(withId(R.id.contentData))).check(matches(withText("test")))
+        onView(allOf(withId(R.id.contentData))).check(matches(withText("WIFI:S:testssid;T:WPA;P:\"12345678\";;")))
     }
 
     private fun childAtPosition(
