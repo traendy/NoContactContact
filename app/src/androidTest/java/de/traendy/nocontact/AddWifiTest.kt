@@ -30,13 +30,14 @@ class AddWifiTest {
 
     @Rule
     @JvmField
-    var mActivityTestRule = ActivityScenarioRule(MainActivity::class.java)
+    val mActivityTestRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Rule
     @JvmField
     val activityAndScreenshotRule: TestRule = RuleChain
             .outerRule(mActivityTestRule)
             .around(ScreenshotTestWatcher())
+
 
     @Test
     fun addWifiWpaTest() {
@@ -83,8 +84,6 @@ class AddWifiTest {
                                                 2)),
                                 1)))
         materialRadioButton.perform(scrollTo(), click())
-
-        takeScreenshot("beep", "boop")
 
         val materialButton2 = onView(
                 allOf(withId(R.id.createQrCodeButton), withText("Create QR Code"),
@@ -157,7 +156,6 @@ class AddWifiTest {
                                 2),
                         isDisplayed()))
         materialButton5.perform(click())
-
         onView(allOf(withId(R.id.contentData))).check(matches(withText("WIFI:S:testssid;T:WPA;P:\"12345678\";;")))
     }
 
