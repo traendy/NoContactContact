@@ -6,11 +6,9 @@
   * Xing
   * snapshat
   * tikTok
-  * Wlan
   * Phone
   * FaceBook
   * Calendar
-  * home page
   * play store
 * Overview of all created Qr Codes
 * Collection of all scanned Qr Codes
@@ -21,6 +19,7 @@
 
 * Test QrCode
 * Tips page for stuff like linked in
+  * home page
 * Add CC, BCC To mail barcode
 
 # Provided Features
@@ -31,6 +30,7 @@
   * mail
   * Twitter
   * Instagram ( Your Instagram URL is made up of two components: Instagram’s website address and your Instagram username, separated by slashes. For example, my Instagram’s username is @chrissysface, so the URL https://www.instagram.com/chrissysface/ would link to my profile.)
+  * Wlan
 * Preview in add qr code feature
 
 # hints

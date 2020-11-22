@@ -16,6 +16,7 @@ class StoreFeatureFlagProvider : FeatureFlagProvider {
                 FeatureFlag.TWITTER_QR_CODE -> false
                 FeatureFlag.INSTAGRAM_QR_CODE -> false
                 FeatureFlag.WLAN_QR_CODE -> false
+                FeatureFlag.CONTACT_QR_CODE -> false
             }
         } else {
             // TestSettings should never be shipped to users

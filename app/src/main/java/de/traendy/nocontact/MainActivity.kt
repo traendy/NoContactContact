@@ -34,7 +34,12 @@ class MainActivity : AppCompatActivity() {
             twitterButton.setOnClickListener { openTwitterDialog() }
             instagramButton.setOnClickListener { openInstagramDialog() }
             wlanButton.setOnClickListener { openWlanFragment() }
+            contactButton.setOnClickListener { openContactFragment() }
         }
+    }
+
+    private fun openContactFragment() {
+
     }
 
     private fun openTwitterDialog() {
@@ -66,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         switchVisibilityTwitterButton()
         switchVisibilityInstagramButton()
         switchVisibilityWlanButton()
+        switchVisibilityContactButton()
         switchVisibility(binding.miscButton)
         rotation += ROTATION_45
         rotateAddButton(rotation)
@@ -105,6 +111,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun switchVisibilityContactButton() {
+        if (RuntimeBehavior.isFeatureEnabled(FeatureFlag.CONTACT_QR_CODE)) {
+            switchVisibility(binding.contactButton)
+        }
+    }
+
     private fun rotateAddButton(rotation: Float) {
         binding.addButton.apply {
             scaleType = ImageView.ScaleType.MATRIX
@@ -137,6 +149,7 @@ class MainActivity : AppCompatActivity() {
                 twitterButton.visibility = View.GONE
                 instagramButton.visibility = View.GONE
                 wlanButton.visibility = View.GONE
+                contactButton.visibility = View.GONE
             } else {
                 addButton.visibility = View.VISIBLE
             }

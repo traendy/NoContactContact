@@ -35,5 +35,10 @@ enum class FeatureFlag(
         "feature.wlan.qrcode",
         "Adds wlan Qr Code",
         "Allows the user to generate a wlan based qr code."
+    ),
+    CONTACT_QR_CODE(
+        "feature.contact.qrcode",
+        "Adds contact Qr Code",
+        "Allows the user to generate a contact based qr code."
     )
 }

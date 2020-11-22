@@ -20,6 +20,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_qrCodeFragment_to_addContactFragment"
+            app:destination="@id/addContactFragment" />
     </fragment>
     <fragment
         android:id="@+id/mailFragment"
@@ -31,4 +34,9 @@
         android:name="de.traendy.nocontact.ui.add.wlan.AddWifiFragment"
         android:label="add_wlan_fragment"
         tools:layout="@layout/add_wlan_fragment" />
+    <fragment
+        android:id="@+id/addContactFragment"
+        android:name="de.traendy.nocontact.ui.add.contact.AddContactFragment"
+        android:label="add_contact_fragment"
+        tools:layout="@layout/add_contact_fragment" />
 </navigation>
