@@ -39,7 +39,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openContactFragment() {
-
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        navController.navigate(QrCodeFragmentDirections.actionQrCodeFragmentToAddContactFragment())
     }
 
     private fun openTwitterDialog() {
